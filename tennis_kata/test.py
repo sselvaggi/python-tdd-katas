@@ -62,10 +62,35 @@ class TestTennisSet(unittest.TestCase):
 
         #'player1' get advantage
         set.score_by('player1')
+        self.assertEqual(set.state, 'advantage')
+        self.assertEqual(set.advantage, 'player1')
 
         #'player2' get deuce back
         set.score_by('player2')
+        self.assertEqual(set.state, 'deuce')
+        
+    def test_deuce_player1_advantage_and_wins(self):
+        set = TennisSet(['player1','player2']) # 0 - 0
+        
+        set.score_by('player2') # 0 - 15
+        set.score_by('player2') # 0 - 30
+        set.score_by('player2') # 0 - 40
 
+        set.score_by('player1') # 15 - 40
+        set.score_by('player1') # 30 - 40
+        set.score_by('player1') # 40 - 40 (deuce)
+
+        self.assertEqual(set.state, 'deuce')
+
+        #'player1' get advantage
+        set.score_by('player1')
+        self.assertEqual(set.state, 'advantage')
+        self.assertEqual(set.advantage, 'player1')
+
+        #'player1' wins
+        set.score_by('player1')
+        self.assertEqual(set.state, 'finished')
+        self.assertEqual(set.winner, 'player1')
 
 
 
@@ -100,10 +125,9 @@ class TennisSet:
             self.set_advantage(player_name)        
         elif(self.state == "advantage"):
             if(self.advantage == player_name):
-                if(self.advantage == player_name):
-                    self.set_winner(player_name)
-                else:
-                    self.state = "deuce"
+                self.set_winner(player_name)
+            else:
+                self.state = "deuce"
 
         if(self.winner != '?'):
             print player_name+" wins."
