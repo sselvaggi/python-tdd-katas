@@ -15,82 +15,75 @@ import unittest
 
 class TestTennisSet(unittest.TestCase):
     def setUp(self):
-        return#nothing by now
+        self.set = TennisSet(['player1','player2']) # 0 - 0
+
     def test_player1_wins(self):
-        set = TennisSet(['player1','player2']) # 0 - 0
-        set.score_by('player1') # 15 - 0
-        set.score_by('player1') # 30 - 0
-        set.score_by('player1') # 40 - 0
-        set.score_by('player1') # 'player1' wins
-        self.assertEqual(set.state, 'finished')
-        self.assertEqual(set.winner, 'player1')
+        self.set.score_by('player1') # 15 - 0
+        self.set.score_by('player1') # 30 - 0
+        self.set.score_by('player1') # 40 - 0
+        self.set.score_by('player1') # 'player1' wins
+        self.assertEqual(self.set.state, 'finished')
+        self.assertEqual(self.set.winner, 'player1')
 
     def test_player2_wins(self):
-        set = TennisSet(['player1','player2']) # 0 - 0
-        set.score_by('player2') # 0 - 15
-        set.score_by('player2') # 0 - 30
-        set.score_by('player2') # 0 - 40
-        set.score_by('player2') # 'player2' wins
-        self.assertEqual(set.state, 'finished')
-        self.assertEqual(set.winner, 'player2')
+        self.set.score_by('player2') # 0 - 15
+        self.set.score_by('player2') # 0 - 30
+        self.set.score_by('player2') # 0 - 40
+        self.set.score_by('player2') # 'player2' wins
+        self.assertEqual(self.set.state, 'finished')
+        self.assertEqual(self.set.winner, 'player2')
 
     def test_deuce(self):
-        set = TennisSet(['player1','player2']) # 0 - 0
-        
-        set.score_by('player2') # 0 - 15
-        set.score_by('player2') # 0 - 30
-        set.score_by('player2') # 0 - 40
+        self.set.score_by('player2') # 0 - 15
+        self.set.score_by('player2') # 0 - 30
+        self.set.score_by('player2') # 0 - 40
 
-        set.score_by('player1') # 15 - 40
-        set.score_by('player1') # 30 - 40
-        set.score_by('player1') # 40 - 40 (deuce)
+        self.set.score_by('player1') # 15 - 40
+        self.set.score_by('player1') # 30 - 40
+        self.set.score_by('player1') # 40 - 40 (deuce)
 
-        self.assertEqual(set.state, 'deuce')
+        self.assertEqual(self.set.state, 'deuce')
 
     def test_deuce_player1_advantage_and_deuce(self):
-        set = TennisSet(['player1','player2']) # 0 - 0
-        
-        set.score_by('player2') # 0 - 15
-        set.score_by('player2') # 0 - 30
-        set.score_by('player2') # 0 - 40
+        self.set.score_by('player2') # 0 - 15
+        self.set.score_by('player2') # 0 - 30
+        self.set.score_by('player2') # 0 - 40
 
-        set.score_by('player1') # 15 - 40
-        set.score_by('player1') # 30 - 40
-        set.score_by('player1') # 40 - 40 (deuce)
+        self.set.score_by('player1') # 15 - 40
+        self.set.score_by('player1') # 30 - 40
+        self.set.score_by('player1') # 40 - 40 (deuce)
 
-        self.assertEqual(set.state, 'deuce')
+        self.assertEqual(self.set.state, 'deuce')
 
         #'player1' get advantage
-        set.score_by('player1')
-        self.assertEqual(set.state, 'advantage')
-        self.assertEqual(set.advantage, 'player1')
+        self.set.score_by('player1')
+        self.assertEqual(self.set.state, 'advantage')
+        self.assertEqual(self.set.advantage, 'player1')
 
         #'player2' get deuce back
-        set.score_by('player2')
-        self.assertEqual(set.state, 'deuce')
+        self.set.score_by('player2')
+        self.assertEqual(self.set.state, 'deuce')
         
     def test_deuce_player1_advantage_and_wins(self):
-        set = TennisSet(['player1','player2']) # 0 - 0
-        
-        set.score_by('player2') # 0 - 15
-        set.score_by('player2') # 0 - 30
-        set.score_by('player2') # 0 - 40
+        self.set.score_by('player2') # 0 - 15
+        self.set.score_by('player2') # 0 - 30
+        self.set.score_by('player2') # 0 - 40
 
-        set.score_by('player1') # 15 - 40
-        set.score_by('player1') # 30 - 40
-        set.score_by('player1') # 40 - 40 (deuce)
+        self.set.score_by('player1') # 15 - 40
+        self.set.score_by('player1') # 30 - 40
+        self.set.score_by('player1') # 40 - 40 (deuce)
 
-        self.assertEqual(set.state, 'deuce')
+        self.assertEqual(self.set.state, 'deuce')
 
         #'player1' get advantage
-        set.score_by('player1')
-        self.assertEqual(set.state, 'advantage')
-        self.assertEqual(set.advantage, 'player1')
+        self.set.score_by('player1')
+        self.assertEqual(self.set.state, 'advantage')
+        self.assertEqual(self.set.advantage, 'player1')
 
         #'player1' wins
-        set.score_by('player1')
-        self.assertEqual(set.state, 'finished')
-        self.assertEqual(set.winner, 'player1')
+        self.set.score_by('player1')
+        self.assertEqual(self.set.state, 'finished')
+        self.assertEqual(self.set.winner, 'player1')
 
 
 
