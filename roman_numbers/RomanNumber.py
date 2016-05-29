@@ -6,3 +6,5 @@ class RomanNumberHelper:
             return "II"
         elif(integer == 3):
             return "III"
+        elif(integer == 4):
+            return "IV"
