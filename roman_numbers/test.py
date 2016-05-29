@@ -22,6 +22,9 @@ class TestRomanNumber(unittest.TestCase):
 
     def test_number_4(self):
         self.assertEqual(self.helper.to_roman(4), 'IV')
+
+    def test_number_5(self):
+        self.assertEqual(self.helper.to_roman(5), 'V')
     
 if __name__ == '__main__':
     unittest.main()
