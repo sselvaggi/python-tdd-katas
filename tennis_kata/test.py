@@ -44,28 +44,20 @@ class TestTennisSet(unittest.TestCase):
 
         self.assertEqual(self.set.state, 'deuce')
 
-    def test_deuce_player1_advantage_and_deuce(self):
+    def test_deuce_and_advantage_by_player(self, player_name = "player1"):
         self.test_deuce()
-
-        #'player1' get advantage
-        self.set.score_by('player1')
+        self.set.score_by(player_name) # player_name gets advantage
         self.assertEqual(self.set.state, 'advantage')
-        self.assertEqual(self.set.advantage, 'player1')
+        self.assertEqual(self.set.advantage, player_name)
 
-        #'player2' get deuce back
-        self.set.score_by('player2')
+    def test_deuce_and_advantage_by_player1_and_deuce_back(self):
+        self.test_deuce_and_advantage_by_player('player1')
+        self.set.score_by('player2') # 'player2' gets deuce back
         self.assertEqual(self.set.state, 'deuce')
         
-    def test_deuce_player1_advantage_and_wins(self):
-        self.test_deuce()
-        
-        #'player1' get advantage
-        self.set.score_by('player1')
-        self.assertEqual(self.set.state, 'advantage')
-        self.assertEqual(self.set.advantage, 'player1')
-
-        #'player1' wins
-        self.set.score_by('player1')
+    def test_deuce_and_advantage_by_player1_and_wins(self):
+        self.test_deuce_and_advantage_by_player('player1')
+        self.set.score_by('player1') # 'player1' wins
         self.assertEqual(self.set.state, 'finished')
         self.assertEqual(self.set.winner, 'player1')
 
