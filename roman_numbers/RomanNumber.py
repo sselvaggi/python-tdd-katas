@@ -4,3 +4,5 @@ class RomanNumberHelper:
             return "I"
         elif(integer == 2):
             return "II"
+        elif(integer == 3):
+            return "III"
