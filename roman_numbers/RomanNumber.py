@@ -18,3 +18,5 @@ class RomanNumberHelper:
         	return "VIII"
         elif(integer == 9):
         	return "IX"
+        elif(integer == 10):
+        	return "X"
