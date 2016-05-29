@@ -12,3 +12,5 @@ class RomanNumberHelper:
             return "V"
         elif(integer == 6):
             return "VI"
+        elif(integer == 7):
+        	return "VII"
