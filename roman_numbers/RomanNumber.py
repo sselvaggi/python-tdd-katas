@@ -4,73 +4,29 @@ class RomanNumberHelper:
         self.symbols = [['I','V'],['X','L'],['C','D'],['M','?']]
         self.digits = range(0,9)
 
-    def symbol_by_digit_and_exp(self, digit, exp):
-        #validate  0 < digit < 10
-        if(digit == 1):
-            return self.symbols[exp][0]
-        elif(digit == 2):
-            return self.symbols[exp][0]+self.symbols[exp][0]
-        elif(digit == 3):
-            return self.symbols[exp][0]+self.symbols[exp][0]+self.symbols[exp][0]
-        elif(digit == 4):
-            return self.symbols[exp][0]+self.symbols[exp][1]
-        elif(digit == 5):
-            return self.symbols[exp][1]
-        elif(digit == 6):
-            return self.symbols[exp][1]+self.symbols[exp][0]
-        elif(digit == 7):
-            return self.symbols[exp][1]+self.symbols[exp][0]+self.symbols[exp][0]
-        elif(digit == 8):
-            return self.symbols[exp][1]+self.symbols[exp][0]+self.symbols[exp][0]+self.symbols[exp][0]
-        elif(digit == 9):
-            return self.symbols[exp][0]+self.symbols[exp+1][0]
     def to_roman(self, integer):
         result = ''
         exp = 0
+        digit = 0
         while (10**exp <= integer):
-            if(integer % (10**(exp+1)) == 1 * (10**exp)):
-                result += self.symbols[exp][0]
-            elif(integer % (10**(exp+1)) == 2 * (10**exp)):
-                result += self.symbols[exp][0]+self.symbols[exp][0]
-            elif(integer % (10**(exp+1)) == 3 * (10**exp)):
-                result += self.symbols[exp][0]+self.symbols[exp][0]+self.symbols[exp][0]
-            elif(integer % (10**(exp+1)) == 4 * (10**exp)):
-                result += self.symbols[exp][0]+self.symbols[exp][1]
-            elif(integer % (10**(exp+1)) == 5 * (10**exp)):
-                result += self.symbols[exp][1]
-            elif(integer % (10**(exp+1)) == 6 * (10**exp)):
-                result += self.symbols[exp][1]+self.symbols[exp][0]
-            elif(integer % (10**(exp+1)) == 7 * (10**exp)):
-                result += self.symbols[exp][1]+self.symbols[exp][0]+self.symbols[exp][0]
-            elif(integer % (10**(exp+1)) == 8 * (10**exp)):
-                result += self.symbols[exp][1]+self.symbols[exp][0]+self.symbols[exp][0]+self.symbols[exp][0]
-            elif(integer % (10**(exp+1)) == 9 * (10**exp)):
-                result += self.symbols[exp][0]+self.symbols[exp+1][0]
+            digit = integer % (10**(exp+1)) - digit
+            if(digit == 1 * (10**exp)):
+                result = self.symbols[exp][0] + result
+            elif(digit == 2 * (10**exp)):
+                result = self.symbols[exp][0]+self.symbols[exp][0] + result
+            elif(digit == 3 * (10**exp)):
+                result = self.symbols[exp][0]+self.symbols[exp][0]+self.symbols[exp][0] + result
+            elif(digit == 4 * (10**exp)):
+                result = self.symbols[exp][0]+self.symbols[exp][1] + result
+            elif(digit == 5 * (10**exp)):
+                result = self.symbols[exp][1] + result
+            elif(digit == 6 * (10**exp)):
+                result = self.symbols[exp][1]+self.symbols[exp][0] + result
+            elif(digit == 7 * (10**exp)):
+                result = self.symbols[exp][1]+self.symbols[exp][0]+self.symbols[exp][0] + result
+            elif(digit == 8 * (10**exp)):
+                result = self.symbols[exp][1]+self.symbols[exp][0]+self.symbols[exp][0]+self.symbols[exp][0] + result
+            elif(digit == 9 * (10**exp)):
+                result = self.symbols[exp][0]+self.symbols[exp+1][0] + result
             exp = exp+1
         return result
-    
-    def get_max_decimal_exponent(self, integer):
-        exp = 0
-        if (integer < 10):
-            exp = 0
-        elif (integer < 100):
-            exp = 1
-        elif (integer < 1000):
-            exp = 2
-        #while((10**exp) ):
-        return exp
-
-    # integer=1  exp=0 return 1
-    # integer=2  exp=0 return 2
-    # integer=10 exp=0 return 0
-    # integer=10 exp=1 return 1
-    # integer=20 exp=1 return 2
-    # integer=10 exp=2 return 0
-    def get_digit_by_exp(self, integer, exp):
-        digit = 0
-        max_exp = self.get_max_decimal_exponent(integer)
-        mod = integer % (10**(exp+1))
-        for i in range(0, 10):
-            if (i*(10**exp) <= mod):
-                digit = i
-        return digit
