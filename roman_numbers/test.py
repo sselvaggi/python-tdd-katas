@@ -12,9 +12,6 @@ class TestRomanNumber(unittest.TestCase):
     def setUp(self):
         self.helper = RomanNumberHelper()
 
-    def test_symbol_by_digit_and_exp(self):
-        self.assertEqual(self.helper.symbol_by_digit_and_exp(1,0), 'I')
-
     def test_number_1(self):
         self.assertEqual(self.helper.to_roman(1), 'I')
 
@@ -50,27 +47,6 @@ class TestRomanNumber(unittest.TestCase):
 
     def test_number_12(self):
         self.assertEqual(self.helper.to_roman(12), 'XII')
-
-    def test_get_max_decimal_exponent(self):
-        self.assertEqual(self.helper.get_max_decimal_exponent(1), 0)
-        self.assertEqual(self.helper.get_max_decimal_exponent(5), 0)
-        self.assertEqual(self.helper.get_max_decimal_exponent(10), 1)
-        self.assertEqual(self.helper.get_max_decimal_exponent(90), 1)
-        self.assertEqual(self.helper.get_max_decimal_exponent(555), 2)
-
-    def test_get_digit_by_exp(self):
-    # integer=1  exp=0 return 1
-    # integer=2  exp=0 return 2
-    # integer=10 exp=0 return 0
-    # integer=10 exp=1 return 1
-    # integer=20 exp=1 return 2
-    # integer=10 exp=2 return 0
-        self.assertEqual(self.helper.get_digit_by_exp(0,0), 0)
-        self.assertEqual(self.helper.get_digit_by_exp(1,0), 1)
-        self.assertEqual(self.helper.get_digit_by_exp(2,0), 2)
-        self.assertEqual(self.helper.get_digit_by_exp(22,1), 2)
-        self.assertEqual(self.helper.get_digit_by_exp(256,1), 5)
-    
 
 if __name__ == '__main__':
     unittest.main()
