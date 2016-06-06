@@ -26,15 +26,38 @@ class RomanNumberHelper:
             return self.symbols[exp][0]+self.symbols[exp+1][0]
     def to_roman(self, integer):
         result = ''
-        for exp in range(self.get_max_decimal_exponent(integer),0):
-            digit = self.get_digit_by_exp(integer,exp)
-            result += self.symbol_by_digit_and_exp(digit,exp)
-        return result 
+        exp = 0
+        while (10**exp <= integer):
+            if(integer % (10**(exp+1)) == 1 * (10**exp)):
+                result += self.symbols[exp][0]
+            elif(integer % (10**(exp+1)) == 2 * (10**exp)):
+                result += self.symbols[exp][0]+self.symbols[exp][0]
+            elif(integer % (10**(exp+1)) == 3 * (10**exp)):
+                result += self.symbols[exp][0]+self.symbols[exp][0]+self.symbols[exp][0]
+            elif(integer % (10**(exp+1)) == 4 * (10**exp)):
+                result += self.symbols[exp][0]+self.symbols[exp][1]
+            elif(integer % (10**(exp+1)) == 5 * (10**exp)):
+                result += self.symbols[exp][1]
+            elif(integer % (10**(exp+1)) == 6 * (10**exp)):
+                result += self.symbols[exp][1]+self.symbols[exp][0]
+            elif(integer % (10**(exp+1)) == 7 * (10**exp)):
+                result += self.symbols[exp][1]+self.symbols[exp][0]+self.symbols[exp][0]
+            elif(integer % (10**(exp+1)) == 8 * (10**exp)):
+                result += self.symbols[exp][1]+self.symbols[exp][0]+self.symbols[exp][0]+self.symbols[exp][0]
+            elif(integer % (10**(exp+1)) == 9 * (10**exp)):
+                result += self.symbols[exp][0]+self.symbols[exp+1][0]
+            exp = exp+1
+        return result
     
     def get_max_decimal_exponent(self, integer):
         exp = 0
-        while((10**exp) < integer):
-            exp+=1
+        if (integer < 10):
+            exp = 0
+        elif (integer < 100):
+            exp = 1
+        elif (integer < 1000):
+            exp = 2
+        #while((10**exp) ):
         return exp
 
     # integer=1  exp=0 return 1
@@ -43,7 +66,7 @@ class RomanNumberHelper:
     # integer=10 exp=1 return 1
     # integer=20 exp=1 return 2
     # integer=10 exp=2 return 0
-    def get_digit_by_exp(self, integer,exp):
+    def get_digit_by_exp(self, integer, exp):
         digit = 0
         max_exp = self.get_max_decimal_exponent(integer)
         mod = integer % (10**(exp+1))
