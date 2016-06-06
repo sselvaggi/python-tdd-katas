@@ -9,7 +9,8 @@ class RomanNumberHelper:
         exp = 0
         digit = 0
         while (10**exp <= integer):
-            digit = integer % (10**(exp+1)) - digit
+            digit = integer % (10**(exp+1))
+            integer -= digit
             if(digit == 1 * (10**exp)):
                 result = self.symbols[exp][0] + result
             elif(digit == 2 * (10**exp)):
